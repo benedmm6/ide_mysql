@@ -24,28 +24,38 @@
 
 @section('content')
 
-    <div class="card">
-
-        <div class="card-header">
-
-            <h3 class="card-title">Nueva tabla</h3>
-
-        
-        </div>
-
-        <div class="card-body">
-
-    awdawd
-
-        </div>
-        <!-- /.card-body -->
-
-        <div class="card-footer">
-            sdaw
-        </div>
-
-        <!-- /.card-footer-->
-
-    </div>
+<select id="membership-members" onchange="updateItems(this)">
+    <option value="0" disabled selected>Select</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+  </select>
+  <br>
+  <br>
+  <div id="results"></div>
     
 @endsection
+
+<script>
+    function updateItems(_this) {
+  var ItemCount = +_this.value //get the value
+  var results = document.querySelector('#results') //append results
+  results.innerHTML = '' //clear the results on each update
+  for (var i = 1; i <= ItemCount; i++) {
+    var input = document.createElement('input') //create input
+    var label = document.createElement("label"); //create label
+    label.innerText = 'Input ' + i
+    input.type = "text";
+    input.placeholder = "Type text here"; //add a placeholder
+    input.className = "my-inputs"; // set the CSS class
+    results.appendChild(label); //append label
+    results.appendChild(document.createElement("br"));
+    results.appendChild(input); //append input
+    results.appendChild(document.createElement("br"));
+  }
+}
+</script>
