@@ -85,7 +85,7 @@
                         @foreach ($dbs as $db)
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('admin.databases.edit', $db->name)}}">
                                 <i class="fas fa-database"></i>
                                 {{-- <span data-feather="file-text"></span> --}}
                                 {{ $db->name }}
@@ -179,7 +179,7 @@
 <script src="{{ url("plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ url("js/adminlte.min.js")}}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ url("s/demo.js")}}j"></script>
+<!-- Customs js app -->
+<script src="{{ url("js/app/createTable.js")}}"></script>
 </body>
 </html>

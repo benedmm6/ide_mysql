@@ -51,7 +51,7 @@
         <h3 class="card-title">Tablas</h3>
 
         <div class="card-tools">
-            <a class="btn btn-primary" href="{{route('admin.tables.create')}}" ><i class="fas fa-fw fa-plus"></i>Nueva tabla</a>
+            <a class="btn btn-primary" href="{{route('admin.tables.create',["bd" => $id])}}" ><i class="fas fa-fw fa-plus"></i>Nueva tabla</a>
         </div>
 
 
@@ -72,23 +72,41 @@
             </thead>
             <tbody>
 
-                {{-- @php
-                    var_dump($tables);
-                @endphp --}}
+                @if (count($tables) != 0)
+                    @foreach ($tables as $item)
 
-                @foreach ($tables as $item)
+                        <tr>
+                            <td>{{ $item->TABLE_NAME }}</td>
+                            <td>{{ $item->TABLE_ROWS}}</td>
+                            <td>{{ $item->TABLE_COLLATION }}</td>
+                            <td>{{ $item->TABLE_COMMENT}}</td>
+                            <td>{{ $item->CREATE_TIME}}</td>
+                            <td>{{ $item->UPDATE_TIME}}</td>
+                            <td width='10px'>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" href=""><i class="fas fa-eye"></i></a>
+        
+                                    <form action="{{ route('admin.tables.destroy', [$item->TABLE_NAME, "bd" => $id])}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                    </form>   
+                                </div>
+                                
+                            </td>
+                        </tr>
+                        
+                    @endforeach
+                    
+                @else
 
-                    <tr>
-                        <td>{{ $item->TABLE_NAME }}</td>
-                        <td>{{ $item->TABLE_ROWS}}</td>
-                        <td>{{ $item->TABLE_COLLATION }}</td>
-                        <td>{{ $item->TABLE_COMMENT}}</td>
-                        <td>{{ $item->CREATE_TIME}}</td>
-                        <td>{{ $item->UPDATE_TIME}}</td>
-                        <td> EDITAR | ELIMINAR </td>
+                    <tr ALIGN=CENTER>
+                        <td COLSPAN=7>Esta base de datos no tiene tablas</td>        
                     </tr>
                     
-                @endforeach
+                @endif
+
+                
 
 
                 
@@ -99,7 +117,7 @@
     <!-- /.card-body -->
 
     <div class="card-footer">
-        footer
+        
     </div>
 
     <!-- /.card-footer-->
