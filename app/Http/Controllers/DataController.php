@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Database\QueryException;
+
 class DataController extends Controller
 {
     /**
@@ -64,8 +66,13 @@ class DataController extends Controller
         }
         
         if($exist[0]->aggregate == 0){
-
-            DB::insert(DB::raw($query));
+            
+            try {
+                $newDataBase = DB::insert(DB::raw($query));
+            } catch (QueryException $ex) {
+                $msj = $ex->getMessage(); 
+                return redirect()->route('admin.databases.index')->with('error',$mensaje);
+            }
 
             if($request->cotejamiento == 0){
 
@@ -107,6 +114,7 @@ class DataController extends Controller
         $query = "SELECT * FROM information_schema.tables where table_schema = '$id'";
 
         $tables = DB::select($query);
+        
         return view('bd.editDatabase', compact('id','tables'));
 
 
@@ -138,9 +146,16 @@ class DataController extends Controller
 
         $query = "DROP DATABASE $id";
 
+        try {
+            $delete = DB::delete($query);
+        } catch (QueryException $ex) {
+            $msj = $ex->getMessage(); 
+            return redirect()->route('admin.databases.index')->with('error',$msj);
+        }
+
         $delete = DB::delete($query);
 
-        if(!$delete){
+        if($delete){
             $msj = "La base de datos ".$id." se elimino correctamente";
             return redirect()->route('admin.databases.index')->with('success',$msj);
         }else{

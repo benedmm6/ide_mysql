@@ -84,7 +84,10 @@
                             <td>{{ $item->UPDATE_TIME}}</td>
                             <td width='10px'>
                                 <div class="btn-group">
-                                    <a class="btn btn-primary" href=""><i class="fas fa-eye"></i></a>
+                                    {{-- <a class="btn btn-primary" href=""><i class="fas fa-eye"></i></a> --}}
+                                    <a class="btn btn-warning" href="{{ route('admin.tables.edit',["bd" => $id, "table"=> $item->TABLE_NAME] )}}">
+                                        <i class="fa fa-pencil"></i>Editar
+                                    </a>
         
                                     <form action="{{ route('admin.tables.destroy', [$item->TABLE_NAME, "bd" => $id])}}" method="POST">
                                         @csrf
@@ -105,12 +108,7 @@
                     </tr>
                     
                 @endif
-
-                
-
-
-                
-                
+      
             </tbody>
         </table>
     </div>
@@ -125,3 +123,4 @@
 </div>
     
 @endsection
+

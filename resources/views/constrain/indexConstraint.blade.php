@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Inicio')
+@section('title', 'Constraints')
 
 @section('content-header')
 
@@ -8,11 +8,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Bases de datos</h1>
+                    <h1>Table: PLACEHOLDER</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">Bases de datos</li>
+                        <li class="breadcrumb-item"><a href="">Inicio</a></li>
+                        <li class="breadcrumb-item active">Constraints</li>
                     </ol>
                 </div>
             </div>
@@ -47,7 +48,12 @@
 
     <div class="card-header">
 
-        <h3 class="card-title">Bases de datos</h3>
+        <h3 class="card-title">Constraints</h3>
+
+        <div class="card-tools">
+            <button class="btn btn-success">PRIMARY KEY</button>
+        </div>
+
 
     </div>
     
@@ -55,45 +61,28 @@
         <table class="table table-head-fixed text-nowrap">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>CHARACTER SET</th>
-                    <th>DEFAULT COLLATION</th>
-                    <th>Acciones</th>
+                    <th>Nombre</th>
+                    <th>Registros</th>
+                    <th>COLLATION</th>
+                    <th>Comentarios</th>     
+                    <th>CREATE_TIME</th>
+                    <th>UPDATE_TIME</th>
+                    <th>ACCIONES</th>
                 </tr>
             </thead>
             <tbody>
-
-                @foreach ($db as $item)
-
-                <tr>
-                    <td>{{$item->SCHEMA_NAME}}</td>
-                    <td>{{ $item->DEFAULT_CHARACTER_SET_NAME}}</td>
-                    <td>{{ $item->DEFAULT_COLLATION_NAME}}</td>
-                    <td width='10px'>
-                        <div class="btn-group">
-                            <a class="btn btn-primary" href="{{route('admin.databases.edit',$item->SCHEMA_NAME)}}"><i class="fas fa-eye"></i></a>
-
-                            <form action="{{ route('admin.databases.destroy', $item->SCHEMA_NAME)}}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                            </form>   
-                        </div>
-                        
-                    </td>
+            
+                <tr ALIGN=CENTER>
+                    <td COLSPAN=7>Esta base de datos no tiene tablas</td>
                 </tr>
-
-
-                    
-                @endforeach
-                
+            
             </tbody>
         </table>
     </div>
     <!-- /.card-body -->
 
     <div class="card-footer">
-        footer
+        
     </div>
 
     <!-- /.card-footer-->
@@ -101,3 +90,4 @@
 </div>
     
 @endsection
+
