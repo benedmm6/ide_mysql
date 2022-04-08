@@ -51,6 +51,8 @@
         <h3 class="card-title">Tablas</h3>
 
         <div class="card-tools">
+
+            <a class="btn btn-primary" href="{{route('admin.query.index', ["bd" => $id])}}" ><i class="fas fa-fw fa-plus"></i>Query</a>
             <a class="btn btn-primary" href="{{route('admin.tables.create',["bd" => $id])}}" ><i class="fas fa-fw fa-plus"></i>Nueva tabla</a>
         </div>
 
@@ -84,7 +86,7 @@
                             <td>{{ $item->UPDATE_TIME}}</td>
                             <td width='10px'>
                                 <div class="btn-group">
-                                    {{-- <a class="btn btn-primary" href=""><i class="fas fa-eye"></i></a> --}}
+                                    <a class="btn btn-primary" href="{{route('admin.datos.index',["table"=>$item->TABLE_NAME, "bd" => $id,])}}"><i class="fas fa-eye"></i></a>
                                     <a class="btn btn-warning" href="{{ route('admin.tables.edit',["bd" => $id, "table"=> $item->TABLE_NAME] )}}">
                                         <i class="fa fa-pencil"></i>Editar
                                     </a>
