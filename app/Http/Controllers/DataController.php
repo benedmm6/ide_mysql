@@ -129,10 +129,7 @@ class DataController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // CREATE TABLE `prueba1`.`usuarios` (
-        //     `idusuarios` INT NOT NULL COMMENT 'awdawdawd',
-        //     PRIMARY KEY (`idusuarios`))
-        //   COMMENT = 'awdawdawd';
+
     }
 
     /**
@@ -152,8 +149,6 @@ class DataController extends Controller
             $msj = $ex->getMessage(); 
             return redirect()->route('admin.databases.index')->with('error',$msj);
         }
-
-        $delete = DB::delete($query);
 
         if($delete){
             $msj = "La base de datos ".$id." se elimino correctamente";

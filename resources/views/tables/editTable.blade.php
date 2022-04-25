@@ -38,6 +38,7 @@
 
                 <form action="{{ route('admin.constraints.store')}}" method="post">
                     @csrf
+                    <input type="hidden" name="tipoADD" value="PK">
                         <input type="hidden" name="table" value="{{ $id }}">
                         <input type="hidden" name="db" value="{{ $_GET["bd"] }}">
 
@@ -54,6 +55,59 @@
                         </select>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <input class="btn btn-primary" type="submit" value="Crear primary key" />
+                </div>
+
+                </form>
+        </div>
+        </div>
+    </div>
+
+    {{-- MODAL AFK --}}
+
+    <div class="modal fade" id="addFK" tabindex="-1" role="dialog" aria-labelledby="addFK" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">FOREIGN KEY</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+
+                <form action="{{ route('admin.constraints.store')}}" method="post">
+                    @csrf
+                        <input type="hidden" name="tipoADD" value="FK">
+                        <input type="hidden" name="table" value="{{ $id }}">
+                        <input type="hidden" name="db" value="{{ $_GET["bd"] }}">
+
+                    <div class="form-group">
+                        <label>Nombre de la llave</label>
+
+                        <input type="text" name="nombrellave" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Columna</label>
+
+                        <input type="text" name="campo" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tabla de referenia</label>
+
+                        <input type="text" name="tablaFK" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Columna foránea</label>
+
+                        <input type="text" name="campoFK" class="form-control">
+                    </div>
+            </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <input class="btn btn-primary" type="submit" value="Crear primary key" />
@@ -244,6 +298,7 @@
 
         <div class="card-tools">
             <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal">PRIMARY KEY</button>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#addFK">FOREIGN KEY</button>
         </div>
 
 
@@ -280,9 +335,15 @@
 
                             <tr>
                                 <td>
-                                    @if ($item->COLUMN_KEY == 'PRI')
-                                        <i class="fa fa-key"></i>
+                                    @if ($item->COLUMN_KEY == 'PRI' )
+                                       PK
                                     @endif
+
+                                    @if($item->COLUMN_KEY == 'MUL')
+
+                                        FK
+                                    @endif
+                               
                                 </td>
                                 <td>
                                     <input type="text" class="form-control" name="nombre" value="{{ $item->COLUMN_NAME}}">

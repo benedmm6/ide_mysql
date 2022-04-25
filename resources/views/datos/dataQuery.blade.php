@@ -69,7 +69,15 @@
             <tbody>
                 <form action="{{route('admin.query.store',['bd'=> $id])}}" method="POST">
                     @csrf
-                      <td><input type="textarea" name="query" ></td>
+                      <td>
+                          {{-- <input type="textarea" name="query" > --}}
+                          {{-- <textarea name="query" cols="30" rows="10"></textarea> --}}
+
+                          <div class="mb-3">
+                            <label for="" class="form-label"></label>
+                            <textarea class="form-control" name="query" id="" rows="3"></textarea>
+                          </div>
+                        </td>
                     <div class="card-footer">
                         <input class="btn btn-primary" type="submit" value="Ejecutar query" />
                     </div>

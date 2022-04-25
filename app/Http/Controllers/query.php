@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Arr;
 
 class query extends Controller
 {
@@ -44,9 +46,33 @@ class query extends Controller
         $id =$request->bd; 
         $string = implode("','", $valores);
 
+        try {
+            
             $base = DB::statement("USE $id");
-            $data  = DB::SELECT(DB::RAW($string));
-            return view('datos.dataRecive', compact('id','data'));
+            
+            $data = DB::SELECT(DB::RAW($string));
+
+            $array = json_decode(json_encode($data), true);
+
+            [$col, $values] = Arr::divide($array[0]);
+
+            $msj = 'Consulta realizada correctamente';
+
+            return view('datos.dataRecive', compact('id','data','col','values'))->with('success', $msj);
+
+        } catch (QueryException $ex) {
+            
+            $msj = $ex->getMessage(); 
+
+            return redirect()->route('admin.query.index', $id)->with('error', $msj);
+            
+            // return redirect()->route('admin.tables.edit',["bd" => $request->db, "table"=> $request->table])->with('error',$msj);
+        
+        }
+
+            // $base = DB::statement("USE $id");
+            // $data  = DB::SELECT(DB::RAW($string));
+            // return view('datos.dataRecive', compact('id','data'));
       
     }
 

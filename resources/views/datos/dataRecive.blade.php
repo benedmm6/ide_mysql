@@ -56,26 +56,38 @@
     <div class="card-body table-responsive p-0">
         <table class="table table-head-fixed text-nowrap">
             <thead>
-                <div class="card-footer">
-        <div class="card-footer">
-            <div class="card-tools">
-              
-            </div>
-        </div>  
-    </div>               
-                
+
+
+
+                    <tr>
+                        @foreach ($col as $item)
+
+                            <th>{{$item}} </th> 
+                            
+                        @endforeach
+                    </tr>
+{{-- 
+                @php
+
+                    print_r($col);
+                   
+                @endphp --}}
             </thead>
             <tbody>
+
+
 
                 @foreach ($data as $item )
 
                 <tr>
                     @foreach ($item as $datos=>$value)
 
-                    <td>{{$value}} </td>                                                                              
-                
-                @endforeach  
-               
+                    <td>{{$value}} </td>
+                    
+                    @endforeach  
+                    
+                </tr>
+                           
                 @endforeach
 
                 
